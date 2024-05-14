@@ -48,6 +48,9 @@ async def connect_and_communicate():
                         await websocket.send(response)
 
                     except json.JSONDecodeError:
+                         if message == "You won":
+                              print("I won")
+                              exit(0)
                          print("Got opponent move, my turn now")
                          x = random.randint(0, 24)
                          y = random.randint(0, 24)
