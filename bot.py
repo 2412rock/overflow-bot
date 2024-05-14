@@ -40,8 +40,9 @@ async def connect_and_communicate():
                         if len(array) == 0:
                              print("I lost")
                              exit(0)
-                        x = array[0]["X"]
-                        y = array[0]["Y"]
+                        move_index = random.randint(0, len(array) - 1)
+                        x = array[move_index]["X"]
+                        y = array[move_index]["Y"]
                         response = f"{x}:{y}"
                         
                         print("picked: ", response)
