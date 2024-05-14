@@ -5,12 +5,14 @@ import asyncio
 import random
 import json
 
-username = "random_elf"
+usernames = ["random_elf", "random_knight", "document_dragon", "spreadsheet_sorcerer", "chart_crusader", "table_troll", "paragraph_paladin", "formatting_fairy", "hyperlink_hero"] 
+username = usernames[random.randint(0, len(usernames)-1)]
 # URL to make the GET request to
-base_url = "http://192.168.1.125:4500"
+base_url = "https://overflowapp.xyz:4200" #"http://192.168.1.125:4500"
 add_to_queue_url = f"{base_url}/api/addtoqueue"
 get_my_match_url = f"{base_url}/api/getMyMatch?username={username}"
-socket_uri = "ws://192.168.1.125:4500/ws/" 
+socket_uri = "wss://overflowapp.xyz:4200/ws/" #"ws://192.168.1.125:4500/ws/" 
+player_1 = ""
 
 async def connect_and_communicate():
      # Replace with the WebSocket URL
@@ -19,18 +21,29 @@ async def connect_and_communicate():
         print("Connected to WebSocket")
 
         # Continuously listen for messages and send messages
+        last_message = ""
         while True:
             try:
                 # Receive message
                 message = await websocket.recv()
                 print("Received message:", message)
 
+                if last_message == message:
+                     exit(0)
+                last_message = message
                 # Send message
                 if "0.1" in message:
                      print("got board")
                 elif "opponent" in message:
                      print("Opponent connected")
                      await websocket.send("opponent")
+                     time.sleep(2)
+                     if player_1 == username:
+                         x = random.randint(0, 24)
+                         y = random.randint(0, 24)
+                         response = f"{x}:{y}"
+                         print("Sending random move", response)
+                         await websocket.send(response)
                 else:
                     print("got position")
                     print(message)
@@ -86,6 +99,7 @@ if response.status_code == 200:
                     if data["player1"] is not None and data["player2"] is not None:
                         print("Found match")
                         game_id = f'{data["player1"]}-{data["player2"]}'
+                        player_1 = data["player1"]
                         socket_uri = f"ws://192.168.1.125:4500/ws/{game_id}/{username}"
                         asyncio.run(connect_and_communicate())
                         break
