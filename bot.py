@@ -100,7 +100,7 @@ if response.status_code == 200:
                         print("Found match")
                         game_id = f'{data["player1"]}-{data["player2"]}'
                         player_1 = data["player1"]
-                        socket_uri = f"ws://192.168.1.125:4500/ws/{game_id}/{username}"
+                        socket_uri += f"{game_id}/{username}"
                         asyncio.run(connect_and_communicate())
                         break
                     time.sleep(2)
