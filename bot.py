@@ -107,7 +107,7 @@ if response.status_code == 200:
                         socket_uri += f"{game_id}/{username}"
                         asyncio.run(connect_and_communicate())
                         break
-                    time.sleep(2)
+                    time.sleep(30)
 else:
     # If the request failed, print an error message
     print(f"Error: {response.status_code}")
