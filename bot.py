@@ -10,10 +10,10 @@ import sys
 username = sys.argv[1]#usernames[random.randint(0, len(usernames)-1)]
 print(f'Running bot with name {username}')
 # URL to make the GET request to
-base_url = "https://10.132.0.4:4200"#"https://overflowapp.xyz:4200" #"http://192.168.1.125:4500"#
+base_url = "http://10.132.0.4:4500"#"https://overflowapp.xyz:4200" #"http://192.168.1.125:4500"#
 add_to_queue_url = f"{base_url}/api/addtoqueue"
 get_my_match_url = f"{base_url}/api/getMyMatch?username={username}"
-socket_uri = "wss://10.132.0.4:4200/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://192.168.1.125:4500/ws/"#
+socket_uri = "ws://10.132.0.4:4500/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://192.168.1.125:4500/ws/"#
 player_1 = ""
 
 async def connect_and_communicate():
