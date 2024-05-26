@@ -99,7 +99,7 @@ if response.status_code == 200:
                     #print(response.text)
                     response_json = response.json()
                     data =  response_json["data"]
-                    print("Got data from match" , data)
+                    #print("Got data from match" , data)
                     if data is not None and data["player1"] is not None and data["player2"] is not None:
                         print("Found match")
                         game_id = f'{data["player1"]}-{data["player2"]}'
@@ -107,7 +107,7 @@ if response.status_code == 200:
                         socket_uri += f"{game_id}/{username}"
                         asyncio.run(connect_and_communicate())
                         break
-                    time.sleep(30)
+                    time.sleep(5)
 else:
     # If the request failed, print an error message
     print(f"Error: {response.status_code}")
