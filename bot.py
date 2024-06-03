@@ -10,10 +10,10 @@ import sys
 username = sys.argv[1]#usernames[random.randint(0, len(usernames)-1)]
 print(f'Running bot with name {username}')
 # URL to make the GET request to
-base_url = "https://overflowapp.xyz:4200" #"http://192.168.1.125:4500"#
+base_url = "https://overflowapp.xyz:4200" #"http://localhost:4500"#
 add_to_queue_url = f"{base_url}/api/addtoqueue"
 get_my_match_url = f"{base_url}/api/getMyMatch?username={username}"
-socket_uri = "wss://overflowapp.xyz:4200/ws/" #"ws://192.168.1.125:4500/ws/"#
+socket_uri = "wss://overflowapp.xyz:4200/ws/" #"ws://localhost:4500/ws/"#
 player_1 = ""
 
 async def connect_and_communicate():
@@ -37,6 +37,9 @@ async def connect_and_communicate():
                 if "0.1" in message:
                      print("got board")
                      await websocket.send("opponent")
+                elif "start" in message:
+                     print("Timer message, discard")
+                     pass
                 elif "opponent" in message:
                      print("Opponent connected")
                      #await websocket.send("opponent")
@@ -68,6 +71,12 @@ async def connect_and_communicate():
                     except json.JSONDecodeError:
                          if message == "You won":
                               print("I won")
+                              exit(0)
+                         if message == "Player 1 ran out of time":
+                              print("Player 1 ran out of time")
+                              exit(0)
+                         if message == "Player 2 ran out of time":
+                              print("Player 2 ran out of time")
                               exit(0)
                          print("Got opponent move, my turn now")
                          x = random.randint(0, 24)
