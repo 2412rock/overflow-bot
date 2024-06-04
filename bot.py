@@ -37,6 +37,9 @@ async def connect_and_communicate():
                 if "0.1" in message:
                      print("got board")
                      await websocket.send("opponent")
+                elif "You lost" in message:
+                     print("I lost")
+                     exit(0)   
                 elif "start" in message:
                      print("Timer message, discard")
                      pass
