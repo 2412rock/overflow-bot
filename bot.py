@@ -141,7 +141,7 @@ if headers != None:
                         else:
                              headers = signin()
                              if headers is None:
-                                  print("Bearer expired and cant sign in again")
+                                  print("Bearer expired and cant sign in again ", username, password)
                                   exit(0)
                         time.sleep(5)
     else:
@@ -149,4 +149,4 @@ if headers != None:
         print(f"Error: {response.status_code}")
         # Checking if the request was successful (status code 200)
 else:
-     print("Failed to login") 
+     print("Failed to login with credentials ", username, password) 
