@@ -133,9 +133,10 @@ if headers != None:
                             #print("Got data from match" , data)
                             if data is not None and data["player1"] is not None and data["player2"] is not None:
                                 print("Found match")
-                                game_id = f'{data["player1"]}-{data["player2"]}'
+                                players = f'{data["player1"]}-{data["player2"]}'
+                                gameId = data["gameId"]
                                 player_1 = data["player1"]
-                                socket_uri += f"{game_id}/{username}"
+                                socket_uri += f"{gameId}/{players}/{username}"
                                 asyncio.run(connect_and_communicate())
                                 break
                         else:
