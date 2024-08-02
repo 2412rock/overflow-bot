@@ -103,7 +103,7 @@ def signin():
     singin_response_json = response.json()
     if response.status_code == 200 and singin_response_json["isSuccess"] == True:
         data = singin_response_json["data"]
-        bearer = data[0]
+        bearer = data["bearerToken"]
         print("Got bearer token ", bearer)
         data = {"username": username}
         print("Posting data ", add_to_queue_url)
