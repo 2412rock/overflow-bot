@@ -71,7 +71,7 @@ async def connect_and_communicate():
                         response = f"{x}:{y}"
                         
                         print("picked: ", response)
-                        time.sleep(random.randint(1,8))
+                        time.sleep(3)
                         await websocket.send(response)
 
                     except json.JSONDecodeError:
@@ -116,7 +116,12 @@ def signin():
 # Sending the GET request
 headers = signin()
 if headers != None:
-    response = requests.post(add_to_queue_url, headers=headers)
+    data = {
+    "key1": "value1",
+    "key2": "value2",
+    "key3": "value3"
+}
+    response = requests.post(add_to_queue_url, headers=headers, json=data)
     if response.status_code == 200:
             # Printing the response content
             print("Response content:")
