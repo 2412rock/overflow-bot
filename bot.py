@@ -109,6 +109,7 @@ def signin():
         print("Posting data ", add_to_queue_url)
         headers = {
         'Authorization': f'Bearer {bearer}',
+        'GameVersion': '10.0.0'
         }
         return headers
     return None
