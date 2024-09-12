@@ -23,7 +23,7 @@ async def connect_and_communicate():
      # Replace with the WebSocket URL
 
     async with websockets.connect(socket_uri) as websocket:
-        print("Connected to WebSocket")
+        #print("Connected to WebSocket")
 
         # Continuously listen for messages and send messages
         last_message = ""
@@ -31,70 +31,70 @@ async def connect_and_communicate():
             try:
                 # Receive message
                 message = await websocket.recv()
-                print("Received message:", message)
+                #print("Received message:", message)
 
                 if last_message == message:
                      exit(0)
                 last_message = message
                 # Send message
                 if "0.1" in message:
-                     print("got board")
+                     #print("got board")
                      await websocket.send("opponent")
                 elif "You lost" in message:
-                     print("I lost")
+                     #print("I lost")
                      exit(0)   
                 elif "start" in message:
-                     print("Timer message, discard")
+                     #print("Timer message, discard")
                      pass
                 elif "opponent" in message:
-                     print("Opponent connected")
+                     #print("Opponent connected")
                      #await websocket.send("opponent")
                      time.sleep(2)
                      if player_1 == username:
                          x = random.randint(0, 24)
                          y = random.randint(0, 24)
                          response = f"{x}:{y}"
-                         print("Sending random move", response)
+                         #print("Sending random move", response)
                          await websocket.send(response)
                 else:
-                    print("got position")
-                    print(message)
+                    #print("got position")
+                    #print(message)
                     try:
                         array = json.loads(message)
-                        print("Got available moves, picking one and sending")
+                        #print("Got available moves, picking one and sending")
                         if len(array) == 0:
-                             print("I lost")
+                             #print("I lost")
                              exit(0)
                         move_index = random.randint(0, len(array) - 1)
                         x = array[move_index]["X"]
                         y = array[move_index]["Y"]
                         response = f"{x}:{y}"
                         
-                        print("picked: ", response)
+                        #print("picked: ", response)
                         time.sleep(3)
                         await websocket.send(response)
 
                     except json.JSONDecodeError:
                          if message == "You won":
-                              print("I won")
+                              #print("I won")
                               exit(0)
                          if message == "Player 1 ran out of time":
-                              print("Player 1 ran out of time")
+                              #print("Player 1 ran out of time")
                               exit(0)
                          if message == "Player 2 ran out of time":
-                              print("Player 2 ran out of time")
+                              #print("Player 2 ran out of time")
                               exit(0)
-                         print("Got opponent move, my turn now")
+                         #print("Got opponent move, my turn now")
                          x = random.randint(0, 24)
                          y = random.randint(0, 24)
                          response = f"{x}:{y}"
-                         print("Sending random move", response)
+                         #print("Sending random move", response)
                          await websocket.send(response)
                 
                 #print("Message sent successfully ", response)
 
             except websockets.ConnectionClosed:
-                print("WebSocket connection closed")
+                #print("WebSocket connection closed")
                 break
 
 def signin():
@@ -104,9 +104,9 @@ def signin():
     if response.status_code == 200 and singin_response_json["isSuccess"] == True:
         data = singin_response_json["data"]
         bearer = data["bearerToken"]
-        print("Got bearer token ", bearer)
+        #print("Got bearer token ", bearer)
         data = {"username": username}
-        print("Posting data ", add_to_queue_url)
+        #print("Posting data ", add_to_queue_url)
         headers = {
         'Authorization': f'Bearer {bearer}',
         'GameVersion': '10.0.0'
@@ -125,8 +125,8 @@ if headers != None:
     response = requests.post(add_to_queue_url, headers=headers, json=data)
     if response.status_code == 200:
             # Printing the response content
-            print("Response content:")
-            print(response.text)
+            #print("Response content:")
+            #print(response.text)
             response_json =  response.json()
             if response_json["isSuccess"] == True:
                 
@@ -138,7 +138,7 @@ if headers != None:
                             data =  response_json["data"]
                             #print("Got data from match" , data)
                             if data is not None and data["player1"] is not None and data["player2"] is not None:
-                                print("Found match")
+                                #print("Found match")
                                 players = f'{data["player1"]}-{data["player2"]}'
                                 gameId = data["gameId"]
                                 player_1 = data["player1"]
@@ -148,7 +148,7 @@ if headers != None:
                         else:
                              headers = signin()
                              if headers is None:
-                                  print("Bearer expired and cant sign in again ", username, password)
+                                  #print("Bearer expired and cant sign in again ", username, password)
                                   exit(0)
                         time.sleep(5)
     else:
