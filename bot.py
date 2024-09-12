@@ -17,7 +17,7 @@ signin_url = f"{base_url}/api/signin"
 get_my_match_url = f"{base_url}/api/getMyMatch?username={username}"
 socket_uri = "ws://192.168.1.159:4200/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://localhost:4500/ws/"#
 player_1 = ""
-password = "24adna"#os.environ['PASSWORD']
+password = os.environ['PASSWORD']
 
 async def connect_and_communicate():
      # Replace with the WebSocket URL
