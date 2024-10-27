@@ -13,10 +13,9 @@ username = sys.argv[1]#usernames[random.randint(0, len(usernames)-1)]
 print(f'Running bot with name {username}')
 # URL to make the GET request to
 # Create a dummy connection to determine the LAN IP
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("192.168.1.1", 80))  # Using a common LAN IP as a dummy destination
-local_ip = s.getsockname()[0]
-s.close()
+
+local_ip = os.environ['LOCAL_IP']
+
 base_url = f"http://{local_ip}:4200"#"https://overflowapp.xyz:4200" #"http://localhost:4500"#
 add_to_queue_url = f"{base_url}/api/addtoqueue"
 signin_url = f"{base_url}/api/signin"
