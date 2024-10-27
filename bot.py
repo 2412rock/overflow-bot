@@ -6,18 +6,26 @@ import random
 import json
 import sys
 import os
+import socket
 
 #usernames = ["random_elf", "random_knight", "document_dragon", "spreadsheet_sorcerer", "chart_crusader", "table_troll", "paragraph_paladin", "formatting_fairy", "hyperlink_hero"] 
 username = sys.argv[1]#usernames[random.randint(0, len(usernames)-1)]
 print(f'Running bot with name {username}')
 # URL to make the GET request to
-base_url = "http://192.168.1.159:4200"#"https://overflowapp.xyz:4200" #"http://localhost:4500"#
+# Create a dummy connection to determine the LAN IP
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("192.168.1.1", 80))  # Using a common LAN IP as a dummy destination
+local_ip = s.getsockname()[0]
+s.close()
+base_url = f"http://{local_ip}:4200"#"https://overflowapp.xyz:4200" #"http://localhost:4500"#
 add_to_queue_url = f"{base_url}/api/addtoqueue"
 signin_url = f"{base_url}/api/signin"
 get_my_match_url = f"{base_url}/api/getMyMatch?username={username}"
-socket_uri = "ws://192.168.1.159:4200/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://localhost:4500/ws/"#
+socket_uri = f"ws://{local_ip}:4200/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://localhost:4500/ws/"#
 player_1 = ""
 password = os.environ['PASSWORD']
+
+
 
 async def connect_and_communicate():
      # Replace with the WebSocket URL
