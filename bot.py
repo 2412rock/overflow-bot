@@ -25,6 +25,12 @@ player_1 = ""
 password = os.environ['PASSWORD']
 
 
+def sleep_before_leave():
+     # Generate a random duration between 2 and 6 seconds
+     random_sleep_duration = random.uniform(2, 6)
+
+     # Sleep for the random duration
+     time.sleep(random_sleep_duration)
 
 async def connect_and_communicate():
      # Replace with the WebSocket URL
@@ -49,6 +55,7 @@ async def connect_and_communicate():
                      await websocket.send("opponent")
                 elif "You lost" in message:
                      #print("I lost")
+                     sleep_before_leave()
                      exit(0)   
                 elif "start" in message:
                      #print("Timer message, discard")
@@ -84,12 +91,15 @@ async def connect_and_communicate():
                     except json.JSONDecodeError:
                          if message == "You won":
                               #print("I won")
+                              sleep_before_leave()
                               exit(0)
                          if message == "Player 1 ran out of time":
                               #print("Player 1 ran out of time")
+                              sleep_before_leave()
                               exit(0)
                          if message == "Player 2 ran out of time":
                               #print("Player 2 ran out of time")
+                              sleep_before_leave()
                               exit(0)
                          #print("Got opponent move, my turn now")
                          x = random.randint(0, 24)
