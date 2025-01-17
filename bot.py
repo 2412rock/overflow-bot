@@ -93,6 +93,10 @@ async def connect_and_communicate():
                               #print("I won")
                               sleep_before_leave()
                               exit(0)
+                         if message == "You lost":
+                              #print("I won")
+                              sleep_before_leave()
+                              exit(0)
                          if message == "Player 1 ran out of time":
                               #print("Player 1 ran out of time")
                               sleep_before_leave()
