@@ -78,6 +78,7 @@ async def connect_and_communicate():
                         #print("Got available moves, picking one and sending")
                         if len(array) == 0:
                              #print("I lost")
+                             sleep_before_leave()
                              exit(0)
                         move_index = random.randint(0, len(array) - 1)
                         x = array[move_index]["X"]
