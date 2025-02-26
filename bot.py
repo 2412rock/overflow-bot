@@ -16,11 +16,11 @@ print(f'Running bot with name {username}')
 
 local_ip = os.environ['LOCAL_IP']
 
-base_url = f"http://{local_ip}:4200"#"https://overflowapp.xyz:4200" #"http://localhost:4500"#
+base_url = f"https://{local_ip}:4200"#"https://overflowapp.xyz:4200" #"http://localhost:4500"#
 add_to_queue_url = f"{base_url}/api/addtoqueue"
 signin_url = f"{base_url}/api/signin"
 get_my_match_url = f"{base_url}/api/getMyMatch?username={username}"
-socket_uri = f"ws://{local_ip}:4200/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://localhost:4500/ws/"#
+socket_uri = f"wss://{local_ip}:4200/ws/"#"wss://overflowapp.xyz:4200/ws/" #"ws://localhost:4500/ws/"#
 player_1 = ""
 password = os.environ['PASSWORD']
 
